@@ -5,7 +5,7 @@ from sqlalchemy.ext.associationproxy import association_proxy
 from config import db, bcrypt
 
 # Models go here!
-class User(db.Model):
+class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -35,7 +35,7 @@ class User(db.Model):
     def __repr__(self):
         return f'<User {self.username}>'
 
-class Coach(db.Model):
+class Coach(db.Model, SerializerMixin):
     __tablename__ = 'coaches'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -54,7 +54,7 @@ class Coach(db.Model):
     def __repr__(self):
         return f'<Coach {self.first_name} {self.last_name}, Sport: {self.sport}, Rate Per Session: {self.rate}'
 
-class Review(db.Model):
+class Review(db.Model, SerializerMixin):
     __tablename__ = 'reviews'
 
     serialize_rules = ("-user.reviews", "-coch.reviews")

@@ -34,7 +34,8 @@ if __name__ == '__main__':
             first_name=fake.first_name(),
             last_name=fake.last_name(),
             sport="Basketball",
-            rate=45
+            rate=45,
+            image="https://olasjobs.org/resources/wp-content/uploads/2023/03/How-to-Become-a-Professional-High-School-Coach-1024x683.webp"
         )
         coach2 = Coach(
             first_name=fake.first_name(),

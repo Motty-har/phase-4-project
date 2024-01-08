@@ -5,14 +5,11 @@
 # Remote library imports
 from flask import request
 from flask_restful import Resource
-from models import User
+from models import User, Coach, Review
 # Local imports
 from config import app, db, api
 import ipdb
 # Add your model imports
-
-
-# Views go here!
 
 @app.route('/')
 def index():
@@ -36,9 +33,14 @@ class Signup(Resource):
         db.session.add(user)
         db.session.commit()
 
+class Coaches(Resource):
+
+    def get(self):
+        coaches = Coach.query.all()
+        return [coach.to_dict() for coach in coaches]
 
 api.add_resource(Signup, '/signup')
-
+api.add_resource(Coaches, '/coaches')
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
 

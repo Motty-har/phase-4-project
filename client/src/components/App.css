@@ -1,0 +1,74 @@
+.card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .card-header {
+    background-color: #f2f2f2;
+    padding: 10px;
+  }
+  
+  .name {
+    font-size: 24px;
+    margin: 0;
+    color: #333;
+  }
+  
+  .coach-img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .sport,
+  .rate {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  .topnav {
+    display: flex;
+    justify-content: space-between;
+    background-color: #333; /* Add your desired background color */
+    color: #fff; /* Add your desired font color */
+    padding: 10px;
+    transition: background-color 0.3s ease; /* Add transition effect */
+    font-family: 'Arial', sans-serif; /* Add your desired font family */
+    border-radius: 10px; /* Add border-radius for round edges */
+  }
+  
+  .left-links {
+    display: flex;
+  }
+  
+  .right-links {
+    display: flex;
+  }
+  
+  .nav-link {
+    padding: 8px 16px;
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+  
+  .nav-link:hover {
+    background-color: maroon;
+    border-radius: 5px;
+  }

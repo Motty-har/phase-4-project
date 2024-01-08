@@ -4,6 +4,7 @@ import NavBar from "./NavBar"
 import Home from "./Home"
 import Coaches from "./Coaches"
 import SignUp from "./SignUp"
+import './App.css';
 
 function App() {
   return (
