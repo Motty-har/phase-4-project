@@ -20,5 +20,8 @@ class Coach(db.Model):
     sport = db.Column(db.String,nullable=False)
     rate = db.Column(db.Integer, nullable=False)
 
+class Review(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    review = db.Column(db.String, nullable=False)
 
 
