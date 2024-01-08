@@ -15,6 +15,10 @@ class Coach(db.Model):
     __tablename__ = 'coaches'
 
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column()
-    last_name = db.Column()
-    sport = db.Column()
+    first_name = db.Column(db.String, nullable=False)
+    last_name = db.Column(db.String, nullable=False)
+    sport = db.Column(db.String,nullable=False)
+    rate = db.Column(db.Integer, nullable=False)
+
+
+
