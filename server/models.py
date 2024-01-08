@@ -12,8 +12,12 @@ class User(db.Model):
     username = db.Column(db.String, unique=True, nullable=False)
     _password_hash = db.Column(db.String)
 
-    reviews = db.relationship("Review", back_populates="user")
+    serialize_rules = ("-reviews.user",)
 
+    reviews = db.relationship("Review", back_populates="user")
+    
+    user_reviews = association_proxy("reviews", "review")
+    
     @hybrid_property
     def password_hash(self):
         raise AttributeError('Password hashes may not be viewed.')
@@ -39,8 +43,13 @@ class Coach(db.Model):
     last_name = db.Column(db.String, nullable=False)
     sport = db.Column(db.String,nullable=False)
     rate = db.Column(db.Integer, nullable=False)
+    image = db.Column(db.String)
+
+    serialize_rules = ("-reviews.coach",)
 
     reviews = db.relationship("Review", back_populates="coach")
+
+    coach_reviews = association_proxy("reviews", "review")
 
     def __repr__(self):
         return f'<Coach {self.first_name} {self.last_name}, Sport: {self.sport}, Rate Per Session: {self.rate}'
@@ -48,14 +57,16 @@ class Coach(db.Model):
 class Review(db.Model):
     __tablename__ = 'reviews'
 
+    serialize_rules = ("-user.reviews", "-coch.reviews")
+
     id = db.Column(db.Integer, primary_key=True)
     review = db.Column(db.String, nullable=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     coach_id = db.Column(db.Integer, db.ForeignKey("coaches.id"))
 
-    user = db.relationship("Customer", back_populates="users")
-    coach = db.relationship("Item", back_populates="coaches")
+    user = db.relationship("User", back_populates="reviews")
+    coach = db.relationship("Coach", back_populates="reviews")
 
     def __repr__(self):
         return f"<Review {self.id}, {self.review}, {self.user.name}, {self.coach.name}>"
