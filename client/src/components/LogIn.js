@@ -1,28 +1,22 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useHistory } from "react-router-dom";
 
-function SignUp({ logIn, setLogIn }) {
-  const history = useHistory()
+function LogIn({ logIn, setLogIn }) {
+    
+    const history = useHistory()
 
-  function handleClick(){
-      setLogIn(!logIn)
-      console.log(logIn)
-  }
-  const formSchema = yup.object().shape({
-    username: yup.string().required("Must enter username").min(3).max(20),
-    password: yup.string().required("Must enter a password").min(7).max(30),
-  });
-
+    function handleClick(){
+        setLogIn(!logIn)
+    }
   const formik = useFormik({
     initialValues: {
       username: "",
       password: "",
     },
-    validationSchema: formSchema,
     onSubmit: (values) => {
-      fetch("signup", {
+      fetch("login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,7 +30,7 @@ function SignUp({ logIn, setLogIn }) {
   return (
     <div className="card">
       <div className="card-header">
-        <h1 className="form-name">Sign Up</h1>
+        <h1 className="form-name">Log In</h1>
       </div>
       <div className="card-body">
         <form onSubmit={formik.handleSubmit}>
@@ -45,35 +39,27 @@ function SignUp({ logIn, setLogIn }) {
           <input
             id="username"
             name="username"
-            className={formik.errors.username ? "error-input" : ""}
             onChange={formik.handleChange}
             value={formik.values.username}
           />
-          {formik.errors.username && (
-            <p style={{ color: "red" }}>{formik.errors.username}</p>
-          )}
           <label htmlFor="password">Password</label>
           <br />
           <input
             id="password"
             name="password"
             type="password"
-            className={formik.errors.password ? "error-input" : ""}
             onChange={formik.handleChange}
             value={formik.values.password}
           />
-          {formik.errors.password && (
-            <p style={{ color: "red" }}>{formik.errors.password}</p>
-          )}
           <button type="submit" className="get-started-button">
             Submit
           </button>
-          <p>Have an account already?</p>
-          <button type="click" onClick={handleClick}>Log In</button>
+          <p>Don't have an account yet?</p>
+          <button type="click" onClick={handleClick}>Sign Up</button>
         </form>
       </div>
     </div>
   );
 }
 
-export default SignUp;
+export default LogIn;

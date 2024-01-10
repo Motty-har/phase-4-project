@@ -3,7 +3,7 @@ import { Switch, Route, BrowserRouter } from "react-router-dom";
 import NavBar from "./NavBar"
 import Home from "./Home"
 import Coaches from "./Coaches"
-import SignUp from "./SignUp"
+import ParentForm from "./ParentForm";
 import './App.css';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
           <Coaches />
         </Route>
         <Route path="/sign_up">
-          <SignUp />
+          <ParentForm />
         </Route>
       </div>
   );
