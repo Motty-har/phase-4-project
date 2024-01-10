@@ -69,7 +69,7 @@ class Review(db.Model, SerializerMixin):
     coach = db.relationship("Coach", back_populates="reviews")
 
     def __repr__(self):
-        return f"<Review {self.id}, {self.review}, {self.user.name}, {self.coach.name}>"
+        return f"<Review {self.id}, {self.review}>"
 
     
 
