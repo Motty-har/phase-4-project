@@ -1,7 +1,6 @@
 import React from "react";
 
 function CoachCard({coach}){
-    console.log(coach)
     return(
         <div className="card">
             <h1 className="name">{coach.first_name} {coach.last_name}</h1>

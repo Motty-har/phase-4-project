@@ -14,7 +14,7 @@ function NavBar() {
       </div>
       <div className="right-links">
         <NavLink to="/sign_up" className="nav-link" activeClassName="active-link">
-          Sign Up
+          Sign Up/Log In
         </NavLink>
       </div>
     </div>
