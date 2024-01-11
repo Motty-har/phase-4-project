@@ -21,10 +21,14 @@ function LogIn({ logIn, setLogIn, setUser }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(values, null, 2),
-      }).then(r => r.json())
-      .then(r => {setUser(r)
-        history.push('/coaches') 
-      });
+      }).then(r => {
+        if (r.ok){
+          r.json().then(r =>{
+            setUser(r)
+          })
+          history.push('/coaches')
+        }
+      })
     },
   });
 
