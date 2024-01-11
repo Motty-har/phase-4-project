@@ -7,6 +7,17 @@ import ParentForm from "./ParentForm";
 import './App.css';
 
 function App() {
+  const [ user, setUser ] = useState(null)
+  useEffect(() => {
+    fetch("/check_session")
+    .then(resp => {
+      if(resp.ok){
+        resp.json().then(r => {
+          console.log(r)
+        })
+      }
+    })
+  }, [])
   return (
     <div className="App">
         <NavBar className="topnav"/><br></br>
@@ -16,7 +27,7 @@ function App() {
         <Route path="/coaches">
           <Coaches />
         </Route>
-        <Route path="/sign_up">
+        <Route path="/sign_up-log_in">
           <ParentForm />
         </Route>
       </div>
