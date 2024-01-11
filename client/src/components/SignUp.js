@@ -8,7 +8,6 @@ function SignUp({ logIn, setLogIn }) {
 
   function handleClick(){
       setLogIn(!logIn)
-      console.log(logIn)
   }
   const formSchema = yup.object().shape({
     username: yup.string().required("Must enter username").min(3).max(20),

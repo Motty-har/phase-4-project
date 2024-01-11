@@ -4,6 +4,7 @@ import NavBar from "./NavBar"
 import Home from "./Home"
 import Coaches from "./Coaches"
 import ParentForm from "./ParentForm";
+import LogOut from "./LogOut";
 import './App.css';
 
 function App() {
@@ -13,11 +14,12 @@ function App() {
     .then(resp => {
       if(resp.ok){
         resp.json().then(r => {
-          console.log(r)
+          setUser(r)
         })
       }
     })
   }, [])
+  console.log(user)
   return (
     <div className="App">
         <NavBar className="topnav"/><br></br>
@@ -26,6 +28,9 @@ function App() {
         </Route><br></br>
         <Route path="/coaches">
           <Coaches />
+        </Route>
+        <Route path="/logout">
+          <LogOut />
         </Route>
         <Route path="/sign_up-log_in">
           <ParentForm />

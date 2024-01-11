@@ -11,6 +11,9 @@ function NavBar() {
         <NavLink to="/coaches" className="nav-link" activeClassName="active-link">
           Coaches
         </NavLink>
+        <NavLink to="/logout" className="nav-link" activeClassName="active-link">
+          logout
+        </NavLink>
       </div>
       <div className="right-links">
         <NavLink to="/sign_up-log_in" className="nav-link" activeClassName="active-link">
