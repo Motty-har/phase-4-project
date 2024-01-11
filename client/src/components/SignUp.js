@@ -28,9 +28,9 @@ function SignUp({ logIn, setLogIn, setUser }) {
         },
         body: JSON.stringify(values, null, 2),
       }).then(r => r.json())
-      .then(r => setUser(r));
-    
-      history.push('/coaches')
+      .then(r => {setUser(r)
+        history.push('/coaches')
+      });
     },
   });
 

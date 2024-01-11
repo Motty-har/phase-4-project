@@ -15,8 +15,6 @@ function Coaches({ setUser }) {
       });
   }, []);
 
-  console.log(coaches);
-
   return (
     <div>
       {coaches.length === 0 ? (
