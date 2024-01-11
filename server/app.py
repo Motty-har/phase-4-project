@@ -7,9 +7,16 @@ import ipdb
 from config import app, db, api
 from models import User, Coach, Review
 
-@app.route('/')
-def index():
-    return '<h1>Project Server</h1>'
+@app.before_request
+def check_if_logged_in():
+    open_access_list = [
+        'signup',
+        'login',
+        'check_session'
+    ]
+
+    if (request.endpoint) not in open_access_list and (not session.get('user_id')):
+        return {'error': '401 Unauthorized'}, 401
 
 class Signup(Resource):
 

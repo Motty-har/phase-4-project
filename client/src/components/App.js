@@ -27,7 +27,7 @@ function App() {
           <Home />
         </Route><br></br>
         <Route path="/coaches">
-          <Coaches />
+          <Coaches setUser={setUser} user={user}/>
         </Route>
         <Route path="/logout">
           <LogOut setUser={setUser}/>
