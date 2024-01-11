@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 
-function SignUp({ logIn, setLogIn }) {
+function SignUp({ logIn, setLogIn, setUser }) {
   const history = useHistory()
 
   function handleClick(){
@@ -27,7 +27,9 @@ function SignUp({ logIn, setLogIn }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(values, null, 2),
-      });
+      }).then(r => r.json())
+      .then(r => setUser(r));
+    
       history.push('/coaches')
     },
   });

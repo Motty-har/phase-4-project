@@ -22,7 +22,7 @@ function App() {
   console.log(user)
   return (
     <div className="App">
-        <NavBar className="topnav"/><br></br>
+        <NavBar className="topnav" user={user}/><br></br>
         <Route exact path="/">
           <Home />
         </Route><br></br>
@@ -30,10 +30,10 @@ function App() {
           <Coaches />
         </Route>
         <Route path="/logout">
-          <LogOut />
+          <LogOut setUser={setUser}/>
         </Route>
         <Route path="/sign_up-log_in">
-          <ParentForm />
+          <ParentForm setUser={setUser}/>
         </Route>
       </div>
   );

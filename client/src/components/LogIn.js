@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-function LogIn({ logIn, setLogIn }) {
+function LogIn({ logIn, setLogIn, setUser }) {
     
     const history = useHistory()
 
@@ -22,7 +22,8 @@ function LogIn({ logIn, setLogIn }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(values, null, 2),
-      });
+      }).then(r => r.json())
+      .then(r => setUser(r));
       history.push('/coaches')
     },
   });

@@ -1,11 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, } from "react";
+import { useHistory } from "react-router-dom";
 
-function LogOut(){
+function LogOut({ setUser }){
+    const history = useHistory()
     useEffect(() => {
         fetch('/logout',{
             method: "DELETE"
         })
-        console.log("delted")
+        setUser(null)
+        history.push("/")
     },[])
 }
 
