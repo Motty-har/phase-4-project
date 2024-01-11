@@ -1,7 +1,7 @@
 import React, {useEffect, useState}from "react";
 import CoachCard from "./CoachCard";
 
-function Coaches({ setUser, setCoach }){
+function Coaches({ setUser, setCoach}){
     const [coaches, setCoaches] = useState(false)
     useEffect(() => {
       fetch("/check_session")
@@ -18,7 +18,7 @@ function Coaches({ setUser, setCoach }){
           .then((r) => {
             if (r.ok){
               r.json().then(r => {
-                setCoaches(r)
+               setCoaches(r)
               })
             setCoaches(false)
             }
@@ -29,10 +29,9 @@ function Coaches({ setUser, setCoach }){
             {coaches === false ? <h1>You must be logged in to view the coaches</h1>:
             coaches.map((coach) =>{
                 return <CoachCard
-                    key={coach.id}
-                    coach={coach}
-                    setCoach={setCoach}
-                    reviews={coach.reviews[0]}
+                  key={coach.id}
+                  coach={coach}
+                  setCoach={setCoach}
                 />
             })}
         </div>

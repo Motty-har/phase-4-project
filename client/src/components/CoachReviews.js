@@ -12,7 +12,6 @@ function CoachReviews({ id, firstname, lastname, image, sport, rate }) {
                 }
             })
     }, [id])
-    
     return (
         <div className="coach-card-container">
           <div className="coach-card">
@@ -27,7 +26,7 @@ function CoachReviews({ id, firstname, lastname, image, sport, rate }) {
           </div>
           <div className="review-section">
             <div>
-              <AddReview />
+              <AddReview id={id}/>
             </div>
             <div>
               {reviews.map((review) => (

@@ -39,7 +39,6 @@ class Signup(Resource):
         session['user_id'] = user.id
 
         return user.to_dict(), 200
-        
 
 class CheckSession(Resource):
 
@@ -93,12 +92,33 @@ class Reviews(Resource):
             return [review.to_dict() for review in reviews], 200
         return {}, 400
 
+class AddReview(Resource):
+    def post(self):
+        request_json = request.get_json()
+
+        coach_id = request_json.get("coach_id")
+        user_id = request_json.get("user_id")  
+        review = request_json.get("review")
+
+        review_obj = Review(
+            coach_id=coach_id,
+            user_id=user_id,
+            review=review
+        )
+    
+        db.session.add(review_obj)
+        db.session.commit()
+
+        return review_obj.to_dict(), 200
+
+
 api.add_resource(Signup, '/signup')
 api.add_resource(CheckSession, '/check_session')
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
 api.add_resource(Coaches, '/coaches')
 api.add_resource(Reviews, '/reviews/<int:id>')
+api.add_resource(AddReview, '/add_review')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
