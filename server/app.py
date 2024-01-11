@@ -84,11 +84,21 @@ class Coaches(Resource):
         coaches = Coach.query.all()
         return [coach.to_dict() for coach in coaches]
 
+class Reviews(Resource):
+    
+    def get(self, id):
+        reviews = Review.query.filter(Review.coach_id == 1).all()
+
+        if reviews:
+            return [review.to_dict() for review in reviews], 200
+        return {}, 400
+
 api.add_resource(Signup, '/signup')
 api.add_resource(CheckSession, '/check_session')
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
 api.add_resource(Coaches, '/coaches')
+api.add_resource(Reviews, '/reviews/<int:id>')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

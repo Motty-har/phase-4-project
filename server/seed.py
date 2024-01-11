@@ -34,7 +34,8 @@ if __name__ == '__main__':
             first_name=fake.first_name(),
             last_name=fake.last_name(),
             sport="Basketball",
-            rate=45
+            rate=45,
+            image="https://t3.ftcdn.net/jpg/01/73/89/66/360_F_173896685_3Q3Vv2aCRkm9irKWD1g5BqASx6seST8L.jpg"
         )
         coach2 = Coach(
             first_name=fake.first_name(),

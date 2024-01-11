@@ -1,7 +1,7 @@
 import React, {useEffect, useState}from "react";
 import CoachCard from "./CoachCard";
 
-function Coaches({ setUser }){
+function Coaches({ setUser, setCoach }){
     const [coaches, setCoaches] = useState(false)
     useEffect(() => {
       fetch("/check_session")
@@ -24,7 +24,6 @@ function Coaches({ setUser }){
             }
           });
       }, []);
-      console.log(coaches)
       return(
         <div>
             {coaches === false ? <h1>You must be logged in to view the coaches</h1>:
@@ -32,6 +31,8 @@ function Coaches({ setUser }){
                 return <CoachCard
                     key={coach.id}
                     coach={coach}
+                    setCoach={setCoach}
+                    reviews={coach.reviews[0]}
                 />
             })}
         </div>
