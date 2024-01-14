@@ -21,7 +21,7 @@ function App() {
       }
     })
   }, [])
-  console.log(coach)
+  
   return (
     <div className="App">
         <NavBar className="topnav" user={user}/><br></br>

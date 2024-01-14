@@ -11,7 +11,7 @@ function CoachReviews({ id, firstname, lastname, image, sport, rate }) {
                     r.json().then(r => setReviews(r))
                 }
             })
-    }, [id])
+    }, [])
     return (
         <div className="coach-card-container">
           <div className="coach-card">

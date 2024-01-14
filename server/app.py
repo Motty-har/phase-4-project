@@ -105,7 +105,7 @@ class AddReview(Resource):
             user_id=user_id,
             review=review
         )
-    
+        
         db.session.add(review_obj)
         db.session.commit()
 
