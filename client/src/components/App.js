@@ -11,16 +11,26 @@ import './App.css';
 function App() {
   const [ user, setUser ] = useState(null)
   const [ coach, setCoach ] = useState([])
+
   useEffect(() => {
-    fetch("/check_session")
-    .then(resp => {
-      if(resp.ok){
-        resp.json().then(r => {
-          setUser(r)
-        })
+    // Check if coach data exists in local storage
+    const storedCoach = localStorage.getItem("coach");
+    if (storedCoach) {
+      setCoach(JSON.parse(storedCoach));
+    }
+
+    fetch("/check_session").then((resp) => {
+      if (resp.ok) {
+        resp.json().then((r) => {
+          setUser(r);
+        });
       }
-    })
-  }, [])
+    });
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("coach", JSON.stringify(coach));
+  }, [coach]);
   
   return (
     <div className="App">
@@ -39,12 +49,8 @@ function App() {
         </Route>
         <Route path="/coach-review">
         <CoachReviews
-          id={coach.id}
-          firstname={coach.first_name}
-          lastname={coach.last_name}
-          image={coach.image}
-          sport={coach.sport}
-          rate={coach.rate}
+          coach={coach}
+          setCoach={setCoach}
     />
         </Route>
       </div>

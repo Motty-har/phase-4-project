@@ -2,31 +2,43 @@ import React, { useEffect, useState } from "react";
 import DisplayReviews from "./DisplayReview";
 import AddReview from "./AddReview";
 
-function CoachReviews({ id, firstname, lastname, image, sport, rate }) {
+function CoachReviews({ coach }) {
     const [reviews, setReviews] = useState([])
+    
     useEffect(() => {
-            fetch(`reviews/${id}`)
-            .then(r => {
-                if (r.ok){
-                    r.json().then(r => setReviews(r))
-                }
-            })
-    }, [])
+      const storedReviews = localStorage.getItem("reviews");
+      if (storedReviews) {
+        setReviews(JSON.parse(storedReviews));
+      }
+  
+    fetch(`/reviews/${coach.id}`).then((response) => {
+        if (response.ok) {
+          response.json().then((data) => {
+            setReviews(data);
+          });
+        }
+      });
+    }, []);
+  
+    useEffect(() => {
+      localStorage.setItem("reviews", JSON.stringify(reviews));
+    }, [reviews]);
+
     return (
         <div className="coach-card-container">
           <div className="coach-card">
             <div className="coach-card-header">
-              <h1 className="coach-name">{firstname} {lastname}</h1>
+              <h1 className="coach-name">{coach.firstname} {coach.lastname}</h1>
             </div>
-            <img className="coach-img" src={image} alt="Coach Image" />
+            <img className="coach-img" src={coach.image} alt="Coach Image" />
             <div className="coach-card-body">
-              <p className="coach-sport">Sport: {sport}</p>
-              <p className="coach-rate">Rate: ${rate}/hr</p>
+              <p className="coach-sport">Sport: {coach.sport}</p>
+              <p className="coach-rate">Rate: ${coach.rate}/hr</p>
             </div>
           </div>
           <div className="review-section">
             <div>
-              <AddReview id={id}/>
+              <AddReview id={coach.id} setReviews={setReviews}/>
             </div>
             <div>
               {reviews.map((review) => (
