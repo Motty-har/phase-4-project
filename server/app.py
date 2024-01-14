@@ -86,7 +86,7 @@ class Coaches(Resource):
 class Reviews(Resource):
     
     def get(self, id):
-        reviews = Review.query.filter(Review.coach_id == 1).all()
+        reviews = Review.query.filter(Review.coach_id == id).all()
 
         if reviews:
             return [review.to_dict() for review in reviews], 200
