@@ -1,5 +1,5 @@
 import React, {Route} from "react";
-import SignUp from "./SignUp";
+import './Home.css'
 
 function Home() {
   return (

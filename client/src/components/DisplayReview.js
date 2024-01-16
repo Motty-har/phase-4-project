@@ -15,7 +15,7 @@ function DisplayReviews({ review }) {
           borderRadius: "50%" 
         }}
       />
-      <span>{review.user.username}</span><br></br>
+      <span>{review.user.username}:</span><br></br>
        <div style={{ overflowWrap: "break-word" }}>
         <p>"{review.review}"</p>
         </div>

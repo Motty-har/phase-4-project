@@ -1,0 +1,106 @@
+.parent-container {
+  display: flex;
+  justify-content: center;
+}
+
+.form-card:hover {
+  transform: scale(1.05);
+}
+
+.form-card {
+  border: 2px solid black;
+  background-color: whitesmoke;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  overflow: hidden;
+  margin: 0 auto;
+  transition: transform 0.3s ease;
+  flex: 0 0 300px;
+  margin: 5px;
+  padding: 20px;
+}
+
+.form-name {
+    font-size: 36px;
+    margin: 0;
+    color: black;
+    text-align: center;
+  }
+
+  .card-body {
+    padding: 10px;
+  }
+
+  .submit-button-wrapper {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .submit-button {
+    background-color: rgb(75, 138, 75);
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: "Arial", sans-serif;
+    font-weight: bold;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .submit-button:hover {
+    background-color: whitesmoke;
+  }
+
+  .message {
+    font-size: 16px;
+    color: black;
+    margin-bottom: 10px;
+    display: block;
+    }
+    
+   .signup-btn {
+        color: black;
+        padding: 10px 10px;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        text-decoration: underline;
+        display: block;
+        margin-top: -5px
+    }
+
+    .btn-wrapper{
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .error-input {
+      border: 1px solid red;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    
+    input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+    
+    p {
+      margin: 5px 0;
+    }
+    

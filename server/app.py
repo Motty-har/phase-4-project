@@ -95,7 +95,7 @@ class Reviews(Resource):
 class AddReview(Resource):
     def post(self):
         request_json = request.get_json()
-
+        
         coach_id = request_json.get("coach_id")
         user_id = request_json.get("user_id")  
         review = request_json.get("review")

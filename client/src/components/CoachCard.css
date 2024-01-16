@@ -1,0 +1,36 @@
+.card {
+    border: 1px solid black;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    overflow: hidden;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+    flex: 0 0 300px;
+    margin: 10px;
+    padding: 20px;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+
+  .image-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+  }
+
+  .coach-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .name,
+  .sport,
+  .rate {
+    margin-top: 10px;
+  }

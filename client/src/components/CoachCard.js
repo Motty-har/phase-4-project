@@ -1,20 +1,26 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import './CoachCard.css'
 
-function CoachCard({ coach, setCoach }){
-    const history = useHistory()
-    return(
-        <div className="card" onClick={() => {
-            setCoach(coach)
-            history.push('/coach-review')
-            
-        }}>
-            <h1 className="name">{coach.first_name} {coach.last_name}</h1>
-            <img src={coach.image} className="coach-img" alt=""/>
-            <p className="sport">Sport: {coach.sport}</p>
-            <p className="rate">Rate: ${coach.rate} Per Session</p>
+
+function CoachCard({ coach, setCoach }) {
+  const history = useHistory();
+   
+  return (
+    <div>
+      <div className="card" onClick={() => {
+        setCoach(coach);
+        history.push('/coach-review');
+      }}>
+        <div className="image-container">
+          <img src={coach.image} className="coach-img" alt="" />
         </div>
-    )
+        <h1 className="name">{coach.first_name} {coach.last_name}</h1>
+        <p className="sport">Sport: {coach.sport}</p>
+        <p className="rate">Rate: ${coach.rate} Per Session</p>
+      </div>
+    </div>
+  );
 }
 
-export default CoachCard
+export default CoachCard;

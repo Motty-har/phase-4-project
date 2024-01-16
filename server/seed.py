@@ -43,7 +43,16 @@ if __name__ == '__main__':
             sport="Football",
             rate=50
         )
-        db.session.add_all([coach1, coach2])
+
+        coach3 = Coach(
+            first_name="Levi",
+            last_name="Goodmann",
+            sport="Baseball",
+            rate=1000
+
+        )
+        
+        db.session.add_all([coach1, coach2, coach3, coach4, coach5,coach6])
         db.session.commit()
 
         db.session.add(Review(review="Great coach", user=user2, coach=coach2))

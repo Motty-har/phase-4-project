@@ -43,7 +43,7 @@ class Coach(db.Model, SerializerMixin):
     last_name = db.Column(db.String, nullable=False)
     sport = db.Column(db.String,nullable=False)
     rate = db.Column(db.Integer, nullable=False)
-    image = db.Column(db.String)
+    image = db.Column(db.String, default="https://static.vecteezy.com/system/resources/previews/005/228/939/original/avatar-man-face-silhouette-user-sign-person-profile-picture-male-icon-black-color-illustration-flat-style-image-vector.jpg")
 
     serialize_rules = ("-reviews.coach",)
 

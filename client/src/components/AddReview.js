@@ -3,20 +3,9 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 
-function AddReview({ id }) {
-  const [user, setUser] = useState([]);
-  const history = useHistory();
+function AddReview({ id, user }) {
 
-  useEffect(() => {
-    fetch("/check_session")
-      .then((resp) => {
-        if (resp.ok) {
-          resp.json().then((r) => {
-            setUser(r);
-          });
-        }
-      });
-  }, []);
+  const history = useHistory();
 
   const formSchema = yup.object().shape({
     review: yup
@@ -29,7 +18,7 @@ function AddReview({ id }) {
   const formik = useFormik({
     initialValues: {
       coach_id: id,
-      user_id: "",
+      user_id: user.id,
       review: "",
     },
     validationSchema: formSchema,

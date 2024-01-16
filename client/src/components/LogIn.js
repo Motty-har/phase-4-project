@@ -33,22 +33,19 @@ function LogIn({ logIn, setLogIn, setUser }) {
   });
 
   return (
-    <div className="card">
-      <div className="card-header">
+    <div className="parent-container">
+      <div className="form-card">
         <h1 className="form-name">Log In</h1>
-      </div>
       <div className="card-body">
         <form onSubmit={formik.handleSubmit}>
           <label htmlFor="username">Username</label>
-          <br />
           <input
             id="username"
             name="username"
             onChange={formik.handleChange}
             value={formik.values.username}
-          />
+          /><br></br><br></br>
           <label htmlFor="password">Password</label>
-          <br />
           <input
             id="password"
             name="password"
@@ -56,13 +53,16 @@ function LogIn({ logIn, setLogIn, setUser }) {
             onChange={formik.handleChange}
             value={formik.values.password}
           />
-          <button type="submit" className="get-started-button">
-            Submit
-          </button>
-          <p>Don't have an account yet?</p>
-          <button type="click" onClick={handleClick}>Sign Up</button>
+          <div className="submit-button-wrapper">
+            <button className="submit-button">Submit</button>
+          </div><br></br>
+          <div className="btn-wrapper">
+            <p className="message">Don't have an account yet?</p>
+            <button className="signup-btn" type="click" onClick={handleClick}>Sign Up</button>
+          </div>
         </form>
       </div>
+    </div>
     </div>
   );
 }

@@ -35,14 +35,12 @@ function SignUp({ logIn, setLogIn, setUser }) {
   });
 
   return (
-    <div className="card">
-      <div className="card-header">
-        <h1 className="form-name">Sign Up</h1>
-      </div>
+    <div className="parent-container">
+    <div className="form-card">
+      <h1 className="form-name">Sign Up</h1>
       <div className="card-body">
         <form onSubmit={formik.handleSubmit}>
           <label htmlFor="username">Username</label>
-          <br />
           <input
             id="username"
             name="username"
@@ -52,9 +50,8 @@ function SignUp({ logIn, setLogIn, setUser }) {
           />
           {formik.errors.username && (
             <p style={{ color: "red" }}>{formik.errors.username}</p>
-          )}
+          )}<br /><br />
           <label htmlFor="password">Password</label>
-          <br />
           <input
             id="password"
             name="password"
@@ -66,13 +63,16 @@ function SignUp({ logIn, setLogIn, setUser }) {
           {formik.errors.password && (
             <p style={{ color: "red" }}>{formik.errors.password}</p>
           )}
-          <button type="submit" className="get-started-button">
-            Submit
-          </button>
-          <p>Have an account already?</p>
-          <button type="click" onClick={handleClick}>Log In</button>
+          <div className="submit-button-wrapper">
+            <button className="submit-button">Submit</button>
+          </div><br></br>
+          <div className="btn-wrapper">
+            <p className="message">Don't have an account yet?</p>
+            <button className="signup-btn" type="click" onClick={handleClick}>Log In</button>
+          </div>
         </form>
       </div>
+    </div>
     </div>
   );
 }

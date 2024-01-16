@@ -13,12 +13,6 @@ function App() {
   const [ coach, setCoach ] = useState([])
 
   useEffect(() => {
-    // Check if coach data exists in local storage
-    const storedCoach = localStorage.getItem("coach");
-    if (storedCoach) {
-      setCoach(JSON.parse(storedCoach));
-    }
-
     fetch("/check_session").then((resp) => {
       if (resp.ok) {
         resp.json().then((r) => {
@@ -27,10 +21,6 @@ function App() {
       }
     });
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem("coach", JSON.stringify(coach));
-  }, [coach]);
   
   return (
     <div className="App">
@@ -51,6 +41,7 @@ function App() {
         <CoachReviews
           coach={coach}
           setCoach={setCoach}
+          user={user}
     />
         </Route>
       </div>
