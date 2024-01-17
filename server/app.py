@@ -75,7 +75,7 @@ class Logout(Resource):
 
         session['user_id'] = None
         
-        return {}, 204
+        return False, 204
      
 class Coaches(Resource):
 
@@ -111,7 +111,16 @@ class AddReview(Resource):
 
         return review_obj.to_dict(), 200
 
-
+class SetCoach(Resource):
+    def post(self):
+        request_json = request.get_json()
+        session["coach_id"] = request_json.get('coach_id')
+        
+class GetCoach(Resource):
+    def get(self):
+        coach = Coach.query.filter(Coach.id == session['coach_id']).first()
+        return coach.to_dict()
+    
 api.add_resource(Signup, '/signup')
 api.add_resource(CheckSession, '/check_session')
 api.add_resource(Login, '/login')
@@ -119,6 +128,8 @@ api.add_resource(Logout, '/logout')
 api.add_resource(Coaches, '/coaches')
 api.add_resource(Reviews, '/reviews/<int:id>')
 api.add_resource(AddReview, '/add_review')
+api.add_resource(SetCoach, '/set_coach')
+api.add_resource(GetCoach, '/get_coach')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

@@ -41,6 +41,7 @@ function App() {
           coach={coach}
           setCoach={setCoach}
           user={user}
+          setUser={setUser}
         />
         </Route>
       </div>

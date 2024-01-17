@@ -42,11 +42,17 @@ if __name__ == '__main__':
         
         for i in range(20):
             random_sport = random.choice(sports)
+            first_name = fake.first_name()
+            last_name = fake.last_name()
             coach = Coach(
-                first_name=fake.first_name(),
-                last_name=fake.last_name(),
+                
+                first_name=first_name,
+                last_name=last_name,
                 sport=random_sport,
-                rate=fake.random_int(min=30, max=100)
+                rate=fake.random_int(min=30, max=100),
+                number=fake.phone_number(),
+                email=f'{first_name}{last_name}@mail.com'.lower()
+
             )
             coaches.append(coach)
             

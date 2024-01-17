@@ -1,17 +1,28 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import './CoachCard.css'
-
+import './CoachCard.css';
 
 function CoachCard({ coach, setCoach }) {
-  const history = useHistory();
-   
+  const history = useHistory(); 
+
+  function handleClick() {
+    console.log(coach.id)
+    fetch('/set_coach', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        coach_id: coach.id,
+      }),
+    })
+    setCoach(coach);
+    history.push('/coach-review')
+  }
+
   return (
     <div>
-      <div className="card" onClick={() => {
-        setCoach(coach);
-        history.push('/coach-review');
-      }}>
+      <div className="card" onClick={handleClick}>
         <div className="image-container">
           <img src={coach.image} className="coach-img" alt="" />
         </div>

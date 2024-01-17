@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useHistory } from "react-router-dom";
@@ -9,7 +9,6 @@ function AddReview({ id, user }) {
   const formSchema = yup.object().shape({
     review: yup.string().required("Must enter a review").min(10).max(500),
   });
-
   const formik = useFormik({
     initialValues: {
       coach_id: id,
@@ -26,10 +25,10 @@ function AddReview({ id, user }) {
         body: JSON.stringify(values, null, 2),
       });
       formik.resetForm();
-      history.push("/coach-review");
-    },
+      window.location.reload();
+    }
+    ,
   });
-
   useEffect(() => {
     formik.setValues((prevValues) => ({
       ...prevValues,
