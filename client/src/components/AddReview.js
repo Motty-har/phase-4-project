@@ -4,15 +4,10 @@ import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 
 function AddReview({ id, user }) {
-
   const history = useHistory();
 
   const formSchema = yup.object().shape({
-    review: yup
-      .string()
-      .required("Must enter a review")
-      .min(10)
-      .max(500),
+    review: yup.string().required("Must enter a review").min(10).max(500),
   });
 
   const formik = useFormik({
@@ -30,7 +25,7 @@ function AddReview({ id, user }) {
         },
         body: JSON.stringify(values, null, 2),
       });
-      formik.resetForm()
+      formik.resetForm();
       history.push("/coach-review");
     },
   });

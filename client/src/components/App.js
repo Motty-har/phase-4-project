@@ -11,7 +11,6 @@ import './App.css';
 function App() {
   const [ user, setUser ] = useState(null)
   const [ coach, setCoach ] = useState([])
-
   useEffect(() => {
     fetch("/check_session").then((resp) => {
       if (resp.ok) {
@@ -42,7 +41,7 @@ function App() {
           coach={coach}
           setCoach={setCoach}
           user={user}
-    />
+        />
         </Route>
       </div>
   );

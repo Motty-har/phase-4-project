@@ -37,7 +37,7 @@ class Signup(Resource):
         db.session.commit()
         
         session['user_id'] = user.id
-
+        
         return user.to_dict(), 200
 
 class CheckSession(Resource):

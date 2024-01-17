@@ -5,6 +5,7 @@ from random import randint, choice as rc
 
 # Remote library imports
 from faker import Faker
+import random
 
 # Local imports
 from app import app
@@ -18,45 +19,76 @@ if __name__ == '__main__':
         Coach.query.delete()
         Review.query.delete()
         
-        user1 = User(
-            username=fake.first_name()
-        )
-        user1.password_hash = user1.username + 'password'
 
-        user2 = User(
-            username=fake.first_name()
-        )
-        user2.password_hash = user2.username + 'password'
-        db.session.add_all([user1, user2])
-        db.session.commit()
+        users = []
 
-        coach1 = Coach(
-            first_name=fake.first_name(),
-            last_name=fake.last_name(),
-            sport="Basketball",
-            rate=45,
-            image="https://t3.ftcdn.net/jpg/01/73/89/66/360_F_173896685_3Q3Vv2aCRkm9irKWD1g5BqASx6seST8L.jpg"
-        )
-        coach2 = Coach(
-            first_name=fake.first_name(),
-            last_name=fake.last_name(),
-            sport="Football",
-            rate=50
-        )
+        for i in range(20):
+            user = User(
+                username=fake.first_name()
+            )
+            user.password_hash = user.username + 'password'
 
-        coach3 = Coach(
-            first_name="Levi",
-            last_name="Goodmann",
-            sport="Baseball",
-            rate=1000
 
-        )
+            users.append(user)
         
-        db.session.add_all([coach1, coach2, coach3, coach4, coach5,coach6])
+        for user in users:
+            db.session.add(user)
+        
+        db.session.commit()
+        
+        sports = ['Basketball', 'Soccer', 'Tennis', 'Baseball', 'Swimming', 'Golf', 'Football', 'Volleyball', 'Hockey']
+        
+        coaches = []
+        
+        for i in range(20):
+            random_sport = random.choice(sports)
+            coach = Coach(
+                first_name=fake.first_name(),
+                last_name=fake.last_name(),
+                sport=random_sport,
+                rate=fake.random_int(min=30, max=100)
+            )
+            coaches.append(coach)
+            
+        for coach in coaches:
+            db.session.add(coach)
+
         db.session.commit()
 
-        db.session.add(Review(review="Great coach", user=user2, coach=coach2))
-        db.session.add(Review(review="Amazing coach", user=user1, coach=coach1))
-        db.session.add(Review(review="Decent coach", user=user1, coach=coach2))
-        db.session.add(Review(review="Awesome coach", user=user2, coach=coach1))
+        actual_reviews = [
+            "Great communication, easy to understand instructions.",
+            "Positive and encouraging coach, built my confidence.",
+            "Helpful tips and strategies provided during sessions.",
+            "Dedicated coach, focused on individual improvement.",
+            "Effective training methods, saw results quickly.",
+            "Attentive to details, corrected techniques for better performance.",
+            "Excellent motivator, made workouts enjoyable.",
+            "Friendly and approachable, created a comfortable learning environment.",
+            "Skilled in the sport, shared valuable insights.",
+            "Patient instructor, adapted to my learning pace.",
+            "Impressed with the level of professionalism.",
+            "Structured sessions, covered a variety of skills.",
+            "Inspiring coach, passionate about the sport.",
+            "Provided constructive feedback for continuous improvement.",
+            "Well-organized lessons, covered both basics and advanced techniques.",
+            "Great emphasis on fundamentals, improved my fundamentals significantly.",
+            "Accessible and accommodating to schedule changes.",
+            "Consistently challenged me to push beyond my limits.",
+            "Focused on overall fitness, not just sport-specific skills.",
+            "Enthusiastic and engaging coaching style.",
+        ]
+        
+        reviews = []
+        coaches = [coach.id for coach in Coach.query.all()]
+        users = [user.id for user in User.query.all()]
+        
+        for i in range(40):
+            random_coach_id = random.choice(coaches)
+            random_user_id = random.choice(users)
+            random_review = random.choice(actual_reviews)
+            review = Review(review=random_review, user_id=random_user_id, coach_id=random_coach_id)
+            reviews.append(review)
+        
+        for review in reviews:
+            db.session.add(review)
         db.session.commit()
