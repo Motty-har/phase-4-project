@@ -1,11 +1,11 @@
 {
     "scripts": {
-        "build": "npm run build-frontend && npm run build-backend",
-        "build-frontend": "cd frontend && npm run build",
-        "build-backend": "cd backend && pipenv install && flask db upgrade",
-        "start": "concurrently \"npm run start-backend\" \"npm run start-frontend\"",
+        "build": "npm run build-client && npm run build-server",
+        "build-frontend": "cd server && npm run build",
+        "build-backend": "cd client && pipenv install && flask db upgrade",
+        "start": "concurrently \"npm run start-server\" \"npm run start-client\"",
         "start-backend": "pipenv run python app.py",
-        "start-frontend": "cd frontend && npm start"
+        "start-frontend": "cd client && npm start"
     },
     "devDependencies": {
         "concurrently": "^8.2.2"
