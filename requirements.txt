@@ -17,7 +17,7 @@ flask-sqlalchemy==3.0.3; python_version >= '3.7'
 greenlet==3.0.3; platform_machine == 'aarch64' or (platform_machine == 'ppc64le' or (platform_machine == 'x86_64' or (platform_machine == 'amd64' or (platform_machine == 'AMD64' or (platform_machine == 'win32' or platform_machine == 'WIN32')))))
 gunicorn==20.1.0; python_version >= '3.5'
 importlib-metadata==5.0.0; python_version >= '3.7'
-importlib-resources==6.1.1; python_version < '3.9'
+importlib-resources==5.12.0; python_version < '3.9'
 ipdb==0.13.9; python_version >= '2.7'
 ipython==8.12.3; python_version >= '3.7'
 itsdangerous==2.1.2; python_version >= '3.7'
