@@ -6,7 +6,6 @@ function CoachCard({ coach, setCoach }) {
   const history = useHistory(); 
 
   function handleClick() {
-    console.log(coach.id)
     fetch('/set_coach', {
       method: 'POST',
       headers: {

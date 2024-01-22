@@ -1,5 +1,5 @@
 
-from flask import request, session
+from flask import request, session, render_template
 from flask_restful import Resource
 from models import User, Coach, Review
 import ipdb
@@ -130,6 +130,11 @@ api.add_resource(Reviews, '/reviews/<int:id>')
 api.add_resource(AddReview, '/add_review')
 api.add_resource(SetCoach, '/set_coach')
 api.add_resource(GetCoach, '/get_coach')
+
+@app.route('/')
+@app.route('/<int:id>')
+def index(id=0):
+    return render_template("index.html")
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

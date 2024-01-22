@@ -26,7 +26,7 @@ function App() {
         <NavBar className="topnav" user={user}/><br></br>
         <Route exact path="/">
           <Home />
-        </Route><br></br>
+        </Route>
         <Route path="/coaches">
           <Coaches setUser={setUser} user={user} setCoach={setCoach}/>
         </Route>

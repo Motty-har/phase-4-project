@@ -24,9 +24,10 @@ function Coaches({ setUser, setCoach}){
             }
           });
       }, []);
+
       return(
         <div className="coach-card-display-container" /*in App.css*/>
-            {coaches === false ? <h1 className="title">You must be logged in to view the coaches</h1>:
+            {coaches === false ? <h1 className="title">You must be logged in to view the coaches...</h1>:
             coaches.map((coach) =>{
                 return <CoachCard
                   key={coach.id}
