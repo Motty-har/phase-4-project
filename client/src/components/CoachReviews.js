@@ -7,9 +7,10 @@ import "./CoachCard.css"
 function CoachReviews({ coach, setCoach, user, setUser }) {
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
-    fetch('/get_coach')
-      .then(r => r.json())
-      .then(r => setCoach(r));
+    const storedCoach = localStorage.getItem("coach");
+    if (storedCoach) {
+      setCoach(JSON.parse(storedCoach));
+    };
     fetch("/check_session").then((resp) => {
       if (resp.ok) {
         resp.json().then((r) => {
@@ -18,7 +19,7 @@ function CoachReviews({ coach, setCoach, user, setUser }) {
       }
     });
   }, []);
-  
+
   useEffect(() => {
     console.log(coach.id)
       fetch(`/reviews/${coach.id}`).then((response) => {
@@ -28,7 +29,7 @@ function CoachReviews({ coach, setCoach, user, setUser }) {
           });
         }
       });
-  }, [setCoach]);
+  }, [coach]);
 
   return (
     <div className="coach-reviews-container"/*in App.css*/>

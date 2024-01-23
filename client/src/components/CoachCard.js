@@ -16,6 +16,7 @@ function CoachCard({ coach, setCoach }) {
       }),
     })
     setCoach(coach);
+    localStorage.setItem("coach", JSON.stringify(coach));
     history.push('/coach-review')
   }
 
