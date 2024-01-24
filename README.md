@@ -26,6 +26,7 @@ Here you can view more information about the coach (including how to get in cont
 
 
 ##About the Project
+
 This project utilizes a React frontend for the user interface and a Flask RESTful backend for handling the server-side functionality. The database is managed by PostgreSQL.
 
 ##Conclusion
