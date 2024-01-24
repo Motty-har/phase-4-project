@@ -22,5 +22,5 @@ Here you will see all the coaches that are in our system. You can browse through
 
 ![image](https://github.com/Motty-har/phase-4-project/assets/126115373/f4222aae-7069-4cbd-a33f-aa46dbbcce19)
 
-Here you can view more information about the coach (including how to get in contact with them) and see reviews that other customers have left. You can also leave a review for other future customers to know about your experience. 
+Here you can view more information about the coach (including how to get in contact with them) and see reviews that other athletes have left. You can also leave a review for other future athletes to know about your experience. 
 
