@@ -25,12 +25,10 @@ Here you will see all the coaches that are in our system. You can browse through
 Here you can view more information about the coach (including how to get in contact with them) and see reviews that other athletes have left. You can also leave a review for other future athletes to know about your experience. 
 
 
-##About the Project
-
+## About the Project
 This project utilizes a React frontend for the user interface and a Flask RESTful backend for handling the server-side functionality. The database is managed by PostgreSQL.
 
-##Conclusion
-
+## Conclusion
 In conclusion, Coached presents an innovative platform designed to connect athletes with their ideal sports coaches. The seamless user experience begins with a user-friendly interface powered by React on the frontend. Whether you are exploring the website for the first time or returning to log in, the intuitive design ensures a smooth onboarding process.
 
 Coached emphasizes user engagement by allowing athletes to browse through a diverse array of coaches, read authentic reviews, and make informed decisions about their coaching journey. The backend, built with Flask RESTful, ensures efficient server-side operations, providing a responsive and dynamic platform for users.
