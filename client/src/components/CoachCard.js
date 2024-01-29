@@ -6,18 +6,8 @@ function CoachCard({ coach, setCoach }) {
   const history = useHistory(); 
 
   function handleClick() {
-    fetch('/set_coach', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        coach_id: coach.id,
-      }),
-    })
     setCoach(coach);
-    localStorage.setItem("coach", JSON.stringify(coach));
-    history.push('/coach-review')
+    history.push(`/coach-review/${coach.id}`)
   }
 
   return (

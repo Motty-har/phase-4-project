@@ -41,16 +41,15 @@ class Signup(Resource):
         return user.to_dict(), 200
 
 class CheckSession(Resource):
-
     def get(self):
-        
-        user_id = session['user_id']
+        user_id = session.get('user_id')
         
         if user_id:
             user = User.query.filter(User.id == user_id).first()
             return user.to_dict(), 200
         
         return {}, 401
+
     
 class Login(Resource):
      def post(self):
@@ -83,13 +82,13 @@ class Coaches(Resource):
         coaches = Coach.query.all()
         return [coach.to_dict() for coach in coaches]
 
-class Reviews(Resource):
+class CoachResource(Resource):
     
     def get(self, id):
-        reviews = Review.query.filter(Review.coach_id == id).all()
+        coach = Coach.query.filter(Coach.id == id).first()
 
-        if reviews:
-            return [review.to_dict() for review in reviews], 200
+        if coach:
+            return coach.to_dict(), 200
         return {}, 400
 
 class AddReview(Resource):
@@ -111,25 +110,38 @@ class AddReview(Resource):
 
         return review_obj.to_dict(), 200
 
-class SetCoach(Resource):
-    def post(self):
-        request_json = request.get_json()
-        session["coach_id"] = request_json.get('coach_id')
+class DeleteReview(Resource):
+    def delete(self, id):
+        review = Review.query.filter(Review.id == id).first()
+        if review:
+            db.session.delete(review)
+            db.session.commit()
+            return {'message': 'Review deleted successfully'}, 200
+        else:
+            return {'error': 'Review not found'}, 404
         
-class GetCoach(Resource):
-    def get(self):
-        coach = Coach.query.filter(Coach.id == session['coach_id']).first()
-        return coach.to_dict()
-    
+class UpdateReview(Resource):
+    def patch(self, id):
+        request_json = request.get_json()
+        review = Review.query.filter(Review.id == id).first()
+        review.review = request_json.get('review')
+
+        db.session.commit()
+        
+        return review.to_dict(), 200
+
+
+
+
 api.add_resource(Signup, '/signup')
 api.add_resource(CheckSession, '/check_session')
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
 api.add_resource(Coaches, '/coaches')
-api.add_resource(Reviews, '/reviews/<int:id>')
+api.add_resource(CoachResource, '/coach/<int:id>')
 api.add_resource(AddReview, '/add_review')
-api.add_resource(SetCoach, '/set_coach')
-api.add_resource(GetCoach, '/get_coach')
+api.add_resource(DeleteReview, '/delete_review/<int:id>')
+api.add_resource(UpdateReview, '/update_review/<int:id>')
 
 @app.route('/')
 @app.route('/<int:id>')
