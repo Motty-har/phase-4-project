@@ -14,7 +14,7 @@ function Home() {
       }
     })
   }, [])
-  console.log(user)
+  
   const history = useHistory()
   return (
     <div className="home-container">
