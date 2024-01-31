@@ -9,34 +9,61 @@ import "./CoachCard.css";
 function CoachReviews({ coach, setCoach, user, setUser }) {
   const { id: coachId } = useParams();
   const [loading, setLoading] = useState(true);
-
+  const [reviews, setReviews] = useState([]);
+  
   useEffect(() => {
-    fetch("/check_session").then((resp) => {
-      if (resp.ok) {
-        resp.json().then((r) => {
-          setUser(r);
-        });
-      }
-    });
+    fetch(`/coach/${coachId}`)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Failed to fetch coach data");
+        }
+      })
+      .then((data) => {
+        setReviews(data.reviews);
+        setCoach(data);
+        setLoading(false);  
+      })
+      .catch((error) => {
+        console.error("Error fetching coach data:", error);
+      });
   }, []);
 
-  useEffect(() => {
-    fetch(`/coach/${coachId}`).then((response) => {
-      if (response.ok) {
-        response.json().then((data) => {
-          setCoach(data);
-          setLoading(false);  
-        });
-      }
-    });
-  }, []);
+  function onAdd(coach) {
+    setReviews(coach.reviews);
+  }
+  
+  function onDelete(reviewId) {
+    fetch(`/delete_review/${reviewId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          setReviews(reviews.filter(r => r.id !== reviewId));
+        } else {
+          throw new Error("Failed to delete review");
+        }
+      })
+      .catch((error) => {
+        console.error("Error deleting review:", error);
+      });
+  }
+
+  function onEdit(review) {
+    const newReviews = reviews.map(r => (r.id === review.id ? review : r));
+    setReviews(newReviews);
+  }
 
   return (
     <div>
       {loading ? (
         <LoadingPage />
       ) : (
-        <div className="coach-reviews-container" /*in App.css*/>
+        <div className="coach-reviews-container">
           <div className="card-container">
             <div className="image-container">
               <img src={coach.image} className="coach-img" alt="" />
@@ -56,16 +83,16 @@ function CoachReviews({ coach, setCoach, user, setUser }) {
             </p>
           </div>
 
-          <div className="review-list" /*in App.css*/>
-            {coach.reviews && coach.reviews.length === 0 ? (
+          <div className="review-list">
+            {reviews && reviews.length === 0 ? (
               <div className="card">
                 <h2>No Reviews Yet</h2>
               </div>
             ) : (
-              coach.reviews.map((review) => (
+              reviews.map((review) => (
                 <div key={review.id} className="review-card">
                   {user.id === review.user.id ? (
-                    <UserReview key={review.id} review={review} />
+                    <UserReview key={review.id} review={review} onDelete={onDelete} onEdit={onEdit}/>
                   ) : (
                     <DisplayReviews key={review.id} review={review} />
                   )}
@@ -75,7 +102,7 @@ function CoachReviews({ coach, setCoach, user, setUser }) {
           </div>
 
           <div className="add-review-container">
-            {user && <AddReview id={coach.id} user={user} />}
+            {user && <AddReview id={coach.id} user={user} onAdd={onAdd} coachId={coachId}/>}
           </div>
         </div>
       )}

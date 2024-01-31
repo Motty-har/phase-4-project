@@ -1,10 +1,8 @@
 import React from "react";
 
-
-function DisplayReviews({ review }) {
-  return (
-    <div className="card">
-      <div>
+const DisplayReviews = ({ review }) => (
+  <div className="card">
+    <div>
       <img
         src={'https://static.vecteezy.com/system/resources/previews/016/079/150/original/user-profile-account-or-contacts-silhouette-icon-isolated-on-white-background-free-vector.jpg'}
         alt="User Profile"
@@ -16,12 +14,11 @@ function DisplayReviews({ review }) {
         }}
       />
       <span>{review.user.username}:</span><br></br>
-       <div style={{ overflowWrap: "break-word" }}>
+      <div style={{ overflowWrap: "break-word" }}>
         <p>"{review.review}"</p>
-        </div>
-      </div><br></br>
-    </div>
-  );
-}
+      </div>
+    </div><br></br>
+  </div>
+);
 
 export default DisplayReviews;

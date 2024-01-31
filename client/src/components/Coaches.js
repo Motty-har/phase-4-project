@@ -1,39 +1,34 @@
 import React, { useEffect, useState } from "react";
 import CoachCard from "./CoachCard";
 
-function Coaches({ setUser, setCoach, user }) {
+function Coaches({ setUser, setCoach, user, loading }) {
   const [coaches, setCoaches] = useState(null);
 
   useEffect(() => {
-    fetch("/check_session").then((resp) => {
-      if (resp.ok) {
-        resp.json().then((r) => {
-          setUser(r);
-        });
-      }
-    });
-  }, []);
-
-  useEffect(() => {
     if (user) {
-      fetch("/coaches")
-        .then((r) => {
-          if (r.ok) {
-            r.json().then((data) => {
-              setCoaches(data);
-            });
+      const fetchData = async () => {
+        try {
+          const response = await fetch("/coaches");
+
+          if (response.ok) {
+            const data = await response.json();
+            setCoaches(data);
           } else {
             setCoaches([]);
           }
-        });
+        } catch (error) {
+          console.error("Error fetching coaches:", error);
+          setCoaches([]);
+        }
+      };
+
+      fetchData();
     }
   }, [user]);
 
   return (
     <div className="coach-card-display-container">
-      {user === null ? (
-        <h1 className="title">You must be logged in to view coaches...</h1>
-      ) : user ? (
+      {user ? (
         coaches === null ? (
           <h1 className="title">Loading coaches...</h1>
         ) : coaches.length === 0 ? (
@@ -43,8 +38,8 @@ function Coaches({ setUser, setCoach, user }) {
             <CoachCard key={coach.id} coach={coach} setCoach={setCoach} />
           ))
         )
-      ) : (
-        <h1 className="title">You need to be logged in to view coaches.</h1>
+      ) : !loading && (
+        <h1 className="title">You must be logged in to view coaches...</h1>
       )}
     </div>
   );

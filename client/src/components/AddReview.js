@@ -2,19 +2,18 @@ import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
+const validationSchema = yup.object().shape({
+  review: yup.string().required("Must enter a review").min(10).max(500),
+});
 
-function AddReview({ id, user }) {
-
-  const formSchema = yup.object().shape({
-    review: yup.string().required("Must enter a review").min(10).max(500),
-  });
+function AddReview({ id, user, onAdd }) {
   const formik = useFormik({
     initialValues: {
+      review: "",
       coach_id: id,
       user_id: user.id,
-      review: "",
     },
-    validationSchema: formSchema,
+    validationSchema: validationSchema,
     onSubmit: (values) => {
       fetch("/add_review", {
         method: "POST",
@@ -22,12 +21,13 @@ function AddReview({ id, user }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(values, null, 2),
-      });
+      })
+        .then((r) => r.json())
+        .then((r) => onAdd(r));
       formik.resetForm();
-      window.location.reload();
-    }
-    ,
+    },
   });
+
   useEffect(() => {
     formik.setValues((prevValues) => ({
       ...prevValues,
@@ -70,7 +70,3 @@ function AddReview({ id, user }) {
 }
 
 export default AddReview;
-
-
-            
-

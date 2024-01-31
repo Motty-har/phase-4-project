@@ -4,16 +4,6 @@ import * as yup from "yup";
 
 function UserReview({ review, onEdit, onDelete }) {
     const [isEditing, setIsEditing] = useState(false);
-    
-    function onDelete(){
-        fetch(`/delete_review/${review.id}`, {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          })
-          window.location.reload();
-    }
 
     const formSchema = yup.object().shape({
         review: yup.string().required("Must enter a review").min(10).max(500),
@@ -32,12 +22,13 @@ function UserReview({ review, onEdit, onDelete }) {
                 },
                 body: JSON.stringify(values),
               })
-            formik.resetForm();
-            window.location.reload();
-        }
-        ,
+              .then(r => r.json())
+              .then(r => {
+                onEdit(r)
+                setIsEditing(false);
+              })
+        },
       });
-      console.log(formik.values)
     return (
       <div className="card">
         <div>

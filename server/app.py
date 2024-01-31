@@ -99,16 +99,19 @@ class AddReview(Resource):
         user_id = request_json.get("user_id")  
         review = request_json.get("review")
 
-        review_obj = Review(
+        new_review = Review(
             coach_id=coach_id,
             user_id=user_id,
             review=review
         )
         
-        db.session.add(review_obj)
+        db.session.add(new_review)
         db.session.commit()
+        
+        coach = Coach.query.filter_by(id = coach_id).first().to_dict()
+        
 
-        return review_obj.to_dict(), 200
+        return coach, 200
 
 class DeleteReview(Resource):
     def delete(self, id):

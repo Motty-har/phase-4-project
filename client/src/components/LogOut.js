@@ -9,7 +9,7 @@ function LogOut({ setUser }){
         })
         setUser(null)
         history.push("/")
-        window.location.reload();
+        
     },[])
 }
 

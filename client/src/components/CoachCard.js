@@ -3,22 +3,24 @@ import { useHistory } from "react-router-dom";
 import './CoachCard.css';
 
 function CoachCard({ coach, setCoach }) {
-  const history = useHistory(); 
+  const history = useHistory();
 
-  function handleClick() {
+  const { id, image, first_name, last_name, sport, rate } = coach;
+
+  const handleClick = () => {
     setCoach(coach);
-    history.push(`/coach-review/${coach.id}`)
-  }
+    history.push(`/coach-review/${id}`);
+  };
 
   return (
     <div>
       <div className="card" onClick={handleClick}>
         <div className="image-container">
-          <img src={coach.image} className="coach-img" alt="" />
+          <img src={image} className="coach-img" alt="" />
         </div>
-        <h1 className="name">{coach.first_name} {coach.last_name}</h1>
-        <p className="sport">Sport: {coach.sport}</p>
-        <p className="rate">Rate: ${coach.rate} Per Session</p>
+        <h1 className="name">{`${first_name} ${last_name}`}</h1>
+        <p className="sport">Sport: {sport}</p>
+        <p className="rate">Rate: ${rate} Per Session</p>
       </div>
     </div>
   );

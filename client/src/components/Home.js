@@ -4,16 +4,23 @@ import './Home.css'
 
 function Home() {
   const [user, setUser] = useState(false)
+  
   useEffect(() => {
     fetch("/check_session")
-    .then(resp => {
-      if(resp.ok){
-        resp.json().then(r => {
-          setUser(r)
-        })
-      }
-    })
-  }, [])
+      .then(resp => {
+        if (resp.ok) {
+          return resp.json();
+        } else {
+          throw new Error("Failed to check session");
+        }
+      })
+      .then(data => {
+        setUser(data);
+      })
+      .catch(error => {
+        console.error("Error checking session:", error);
+      });
+  }, []);
   
   const history = useHistory()
   return (
