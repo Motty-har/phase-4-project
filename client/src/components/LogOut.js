@@ -7,8 +7,8 @@ function LogOut({ setUser }){
         fetch('/logout',{
             method: "DELETE"
         })
-        setUser(null)
         history.push("/")
+        setUser(false)
         
     },[])
 }

@@ -10,7 +10,7 @@ import LoadingPage from "./LoadingPage";
 import './App.css';
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(false);
   const [coach, setCoach] = useState([]);
   const [loading, setLoading] = useState(true);
 

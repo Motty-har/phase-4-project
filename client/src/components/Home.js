@@ -19,9 +19,10 @@ function Home() {
       })
       .catch(error => {
         console.error("Error checking session:", error);
+        setUser(false)
       });
   }, []);
-  
+  console.log(user)
   const history = useHistory()
   return (
     <div className="home-container">
@@ -33,7 +34,7 @@ function Home() {
   <button
     className="get-started-button"
     onClick={() =>
-      user ? history.push('/coaches') : history.push('/sign_up-log_in')
+      !user ? history.push('/sign_up-log_in') : history.push('/coaches')
     }
   >
     Get Started

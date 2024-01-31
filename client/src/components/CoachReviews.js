@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import DisplayReviews from "./DisplayReview";
 import AddReview from "./AddReview";
-import LoadingPage from "./LoadingPage";  
 import UserReview from "./UserReview";
 import "./CoachCard.css";
 
-function CoachReviews({ coach, setCoach, user, setUser }) {
+function CoachReviews({ coach, setCoach, user }) {
   const { id: coachId } = useParams();
   const [loading, setLoading] = useState(true);
   const [reviews, setReviews] = useState([]);
-  
+
   useEffect(() => {
+    setLoading(true);
     fetch(`/coach/${coachId}`)
       .then((response) => {
         if (response.ok) {
@@ -23,19 +23,20 @@ function CoachReviews({ coach, setCoach, user, setUser }) {
       .then((data) => {
         setReviews(data.reviews);
         setCoach(data);
-        setLoading(false);  
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching coach data:", error);
+        setLoading(false);
       });
-  }, []);
+  }, [coachId, setCoach]);
 
   function onAdd(coach) {
     setReviews(coach.reviews);
   }
-  
+
   function onDelete(reviewId) {
-    fetch(`/delete_review/${reviewId}`, {
+    fetch(`/manage_review/${reviewId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -43,7 +44,7 @@ function CoachReviews({ coach, setCoach, user, setUser }) {
     })
       .then((response) => {
         if (response.ok) {
-          setReviews(reviews.filter(r => r.id !== reviewId));
+          setReviews(reviews.filter((r) => r.id !== reviewId));
         } else {
           throw new Error("Failed to delete review");
         }
@@ -54,14 +55,14 @@ function CoachReviews({ coach, setCoach, user, setUser }) {
   }
 
   function onEdit(review) {
-    const newReviews = reviews.map(r => (r.id === review.id ? review : r));
+    const newReviews = reviews.map((r) => (r.id === review.id ? review : r));
     setReviews(newReviews);
   }
 
   return (
-    <div>
+    <div className="coach-card-display-container">
       {loading ? (
-        <LoadingPage />
+        <h1 className="title">Loading Reviews</h1>
       ) : (
         <div className="coach-reviews-container">
           <div className="card-container">
@@ -90,9 +91,13 @@ function CoachReviews({ coach, setCoach, user, setUser }) {
               </div>
             ) : (
               reviews.map((review) => (
-                <div key={review.id} className="review-card">
-                  {user.id === review.user.id ? (
-                    <UserReview key={review.id} review={review} onDelete={onDelete} onEdit={onEdit}/>
+                <div className="review-card" key={review.id}>
+                  {user && user.id === review.user.id ? (
+                    <UserReview
+                      review={review}
+                      onDelete={onDelete}
+                      onEdit={onEdit}
+                    />
                   ) : (
                     <DisplayReviews key={review.id} review={review} />
                   )}
@@ -102,7 +107,7 @@ function CoachReviews({ coach, setCoach, user, setUser }) {
           </div>
 
           <div className="add-review-container">
-            {user && <AddReview id={coach.id} user={user} onAdd={onAdd} coachId={coachId}/>}
+            {user && <AddReview id={coach.id} user={user} onAdd={onAdd} coachId={coachId} />}
           </div>
         </div>
       )}

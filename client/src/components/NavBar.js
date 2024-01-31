@@ -14,7 +14,7 @@ function NavBar({ user }) {
         </NavLink>
       </div>
       <div className="right-links">
-        {user === null ? <NavLink to="/sign_up-log_in" className="nav-link" activeClassName="active-link">
+        {user === false ? <NavLink to="/sign_up-log_in" className="nav-link" activeClassName="active-link">
           Sign Up/Log In
         </NavLink>:
         <NavLink to="/logout" className="nav-link" activeClassName="active-link">

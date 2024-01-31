@@ -15,7 +15,7 @@ function UserReview({ review, onEdit, onDelete }) {
     },
     validationSchema: formSchema,
     onSubmit: (values) => {
-      fetch(`/update_review/${review.id}`, {
+      fetch(`/manage_review//${review.id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
