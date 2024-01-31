@@ -3,23 +3,14 @@ import SignUp from "./SignUp";
 import LogIn from "./LogIn";
 import './Form.css'
 
-function ParentForm({ setUser }){
-    const [ logIn, setLogIn] = useState(false)
+function ParentForm({ setUser }) {
+  const [logIn, setLogIn] = useState(false);
 
-    if (logIn === false){
-        return <SignUp 
-            logIn={logIn}
-            setLogIn={setLogIn}
-            setUser={setUser}
-        />
-    }
-    else{
-        return <LogIn 
-            logIn={logIn}
-            setLogIn={setLogIn}
-            setUser={setUser}
-        />
-    }
+  return logIn ? (
+    <LogIn logIn={logIn} setLogIn={setLogIn} setUser={setUser} />
+  ) : (
+    <SignUp logIn={logIn} setLogIn={setLogIn} setUser={setUser} />
+  );
 }
 
-export default ParentForm
+export default ParentForm;
