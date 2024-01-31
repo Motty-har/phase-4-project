@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 
 function LogIn({ logIn, setLogIn, setUser }) {
+  const [error, setError] = useState(false)
   const history = useHistory();
 
-  function handleClick() {
+  const handleClick = () => {
     setLogIn(!logIn);
-  }
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -21,14 +22,22 @@ function LogIn({ logIn, setLogIn, setUser }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(values, null, 2),
-      }).then((r) => {
-        if (r.ok) {
-          r.json().then((r) => {
-            setUser(r);
-          });
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            setError(true)
+            throw new Error("Failed to log in");
+          }
+        })
+        .then((user) => {
+          setUser(user);
           history.push('/coaches');
-        }
-      });
+        })
+        .catch((error) => {
+          console.error("Error during login:", error);
+        });
     },
   });
 
@@ -44,7 +53,7 @@ function LogIn({ logIn, setLogIn, setUser }) {
               name="username"
               onChange={formik.handleChange}
               value={formik.values.username}
-            /><br></br><br></br>
+            /><br /><br />
             <label htmlFor="password">Password</label>
             <input
               id="password"
@@ -53,12 +62,13 @@ function LogIn({ logIn, setLogIn, setUser }) {
               onChange={formik.handleChange}
               value={formik.values.password}
             />
+            {error ? <p style={{ color: 'red', textAlign: 'center' }}>Username or Password is inccorect</p> : null}
             <div className="submit-button-wrapper">
-              <button className="submit-button">Submit</button>
-            </div><br></br>
+              <button className="submit-button" type="submit">Submit</button>
+            </div><br />
             <div className="btn-wrapper">
               <p className="message">Don't have an account yet?</p>
-              <button className="signup-btn" type="click" onClick={handleClick}>Sign Up</button>
+              <button className="signup-btn" type="button" onClick={handleClick}>Sign Up</button>
             </div>
           </form>
         </div>

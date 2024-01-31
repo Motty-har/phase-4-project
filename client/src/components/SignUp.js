@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 
 function SignUp({ logIn, setLogIn, setUser }) {
+  const [error, setError] = useState(false)
   const history = useHistory();
 
   function handleClick() {
@@ -29,10 +30,21 @@ function SignUp({ logIn, setLogIn, setUser }) {
         },
         body: JSON.stringify(values, null, 2),
       })
-        .then((r) => r.json())
         .then((r) => {
-          setUser(r);
+          if (r.ok) {
+            return r.json();
+          } else {
+            setError(true)
+            throw new Error("Failed to sign up");
+          }
+        })
+        .then((user) => {
+          setUser(user);
           history.push('/coaches');
+        })
+        .catch((error) => {
+          console.error("Error during signup:", error);
+        
         });
     },
   });
@@ -52,7 +64,7 @@ function SignUp({ logIn, setLogIn, setUser }) {
               value={formik.values.username}
             />
             {formik.errors.username && (
-              <p style={{ color: "red" }}>{formik.errors.username}</p>
+              <p style={{ color: 'red', textAlign: 'center' }}>{formik.errors.username}</p>
             )}
             <br /><br />
             <label htmlFor="password">Password</label>
@@ -65,8 +77,9 @@ function SignUp({ logIn, setLogIn, setUser }) {
               value={formik.values.password}
             />
             {formik.errors.password && (
-              <p style={{ color: "red" }}>{formik.errors.password}</p>
+              <p style={{ color: 'red', textAlign: 'center' }}>{formik.errors.password}</p>
             )}
+            {error ? <p style={{ color: 'red', textAlign: 'center' }}>Username already exists</p> : null}
             <div className="submit-button-wrapper">
               <button className="submit-button">Submit</button>
             </div>
