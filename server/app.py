@@ -54,7 +54,7 @@ class Login(Resource):
 
 class Logout(Resource):
     def delete(self):
-        session['user_id'] = None
+        session.clear()
         return False, 204
      
 class Coaches(Resource):
